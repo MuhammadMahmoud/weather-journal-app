@@ -24,3 +24,12 @@ function listening(){
     console.log(`running on localhost: ${port}`);
 }
 // Server Routes 
+app.get('/fakeWeatherData',sendData);
+app.post('/fakeWeatherData',insertData);
+function sendData(request,response) {
+    response.send(projectData);
+}
+function insertData(request,response) {
+    projectData.push(request.body);
+    response.send('Inserted');
+}
