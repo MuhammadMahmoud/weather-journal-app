@@ -4,7 +4,11 @@
 const btnGenerator=document.getElementById('generate');
 const feelings = document.getElementById('feelings');
 const  zipKey=document.getElementById('zip');
-const url = "/fakeWeatherData";
+let entryHolder = document.getElementById('entryHolder');
+let date = document.getElementById('date');
+let temp = document.getElementById('temp');
+let content = document.getElementById('content');
+//const baseUrl = "http://localhost:3000/?";
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
@@ -32,14 +36,36 @@ const getData = async (url='') =>{
     try {
     const allData = await request.json()
     console.log(allData);
+    return allData;
     }
     catch(error) {
       console.log("error", error);
     }
 };
+// const updateUI = async () => {
+//     const request = await fetch('/all');
+//     try{
+//       const allData = await request.json();
+//       document.getElementById('animalName').innerHTML = allData[0].animal;
+//       document.getElementById('animalFact').innerHTML = allData[0].facts;
+//       document.getElementById('animalFav').innerHTML = allData[0].fav;
+  
+//     }catch(error){
+//       console.log("error", error);
+//     }
+//   }
 // get data
 function getWeather(event) {
     event.preventDefault();
+    getData('/fakeWeatherData')
+    .then(function (allData) {
+        console.log(allData);
+        postData('/fakeWeatherData',{date : allData.date, 
+            temp: allData.temp,content:allData.content, feelings:feelings })     
+    })
+    .then(
+        updateUI()
+    )
 }
 // Events
 btnGenerator.addEventListener('click',getWeather);
