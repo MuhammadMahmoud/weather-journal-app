@@ -2,7 +2,7 @@
 
 /* Global Variables */
 const btnGenerator=document.getElementById('generate');
-const feelings = document.getElementById('feelings');
+let feeling = document.getElementById('feelings');
 const  zipKey=document.getElementById('zip');
 let entryHolder = document.getElementById('entryHolder');
 let date = document.getElementById('date');
@@ -42,26 +42,27 @@ const getData = async (url='') =>{
       console.log("error", error);
     }
 };
-// const updateUI = async () => {
-//     const request = await fetch('/all');
-//     try{
-//       const allData = await request.json();
-//       document.getElementById('animalName').innerHTML = allData[0].animal;
-//       document.getElementById('animalFact').innerHTML = allData[0].facts;
-//       document.getElementById('animalFav').innerHTML = allData[0].fav;
+const updateUI = async () => {
+    const request = await fetch('/all');
+    try{
+      const allData = await request.json();
+      console.log(allData);
+      date.innerHTML = allData.date;
+      temp.innerHTML = allData.temp;
+      content.innerHTML = allData.content;
   
-//     }catch(error){
-//       console.log("error", error);
-//     }
-//   }
+    }catch(error){
+      console.log("error", error);
+    }
+  }
 // get data
 function getWeather(event) {
     event.preventDefault();
     getData('/fakeWeatherData')
     .then(function (allData) {
         console.log(allData);
-        postData('/fakeWeatherData',{date : allData.date, 
-            temp: allData.temp,content:allData.content, feelings:feelings })     
+        postData('/fakeWeatherData',{ date : allData.date, 
+            temp: allData.temp, content:allData.content, feelings: feeling.innerHTML })     
     })
     .then(
         updateUI()

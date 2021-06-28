@@ -1,8 +1,9 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = { date : 'Mon Jun 28 2021 13:11:09 GMT+0200 (Eastern European Standard Time)',
+projectData = [{ date : 'Mon Jun 28 2021 13:11:09 GMT+0200 (Eastern European Standard Time)',
     temp: 'Very Hot',
     content: 'bla bla bla bla bla bla',
-};
+    feelings: '',
+}];
 
 // Require Express to run server and routes
 const express=require('express');
@@ -29,10 +30,20 @@ function listening(){
 // Server Routes 
 app.get('/fakeWeatherData',sendData);
 app.post('/fakeWeatherData',insertData);
+app.get('/all',sendData);
 function sendData(request,response) {
     response.send(projectData);
+    console.log(`this data has been sent ${ projectData}`);
 }
 function insertData(request,response) {
-    projectData.push(request.body);
-    response.send('Inserted');
+    let newEntry={
+        date : request.body.date,
+    temp: request.body.temp,
+    content: request.body.content,
+    feelings: request.body.feelings,
+    }
+    
+    projectData.push(newEntry);
+    response.send(projectData);
+    
 }
