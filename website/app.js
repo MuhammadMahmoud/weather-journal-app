@@ -8,6 +8,7 @@ let entryHolder = document.getElementById('entryHolder');
 let date = document.getElementById('date');
 let temp = document.getElementById('temp');
 let content = document.getElementById('content');
+let currentFeelings=document.getElementById('currentFeelings');
 //const baseUrl = "http://localhost:3000/?";
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -25,6 +26,7 @@ const postData= async (url='',data={})=>{
     });
     try {
         const newData = await response.json();
+        console.log(newData);
         return newData;
     } catch (error) {
         console.log("error",error);
@@ -43,13 +45,14 @@ const getData = async (url='') =>{
     }
 };
 const updateUI = async () => {
-    const request = await fetch('/all');
+    const request = await fetch('/fakeWeatherData');
     try{
       const allData = await request.json();
       console.log(allData);
       date.innerHTML = allData.date;
       temp.innerHTML = allData.temp;
       content.innerHTML = allData.content;
+      currentFeelings.innerHTML=allData.feelings;
   
     }catch(error){
       console.log("error", error);

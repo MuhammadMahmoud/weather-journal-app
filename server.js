@@ -33,17 +33,19 @@ app.post('/fakeWeatherData',insertData);
 app.get('/all',sendData);
 function sendData(request,response) {
     response.send(projectData);
-    console.log(`this data has been sent ${ projectData}`);
+    console.log("this data has been sent " );
+    console.log(projectData);
 }
 function insertData(request,response) {
     let newEntry={
         date : request.body.date,
-    temp: request.body.temp,
-    content: request.body.content,
-    feelings: request.body.feelings,
+        temp: request.body.temp,
+        content: request.body.content,
+        feelings: request.body.feelings,
     }
     
     projectData=newEntry;
     response.send(projectData);
+    console.log(projectData);
     
 }
