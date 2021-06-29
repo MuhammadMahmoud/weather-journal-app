@@ -2,8 +2,8 @@
 
 /* Global Variables */
 const btnGenerator=document.getElementById('generate');
-let feeling = document.getElementById('feelings');
 const  zipKey=document.getElementById('zip');
+let feeling = document.getElementById('feelings');
 let entryHolder = document.getElementById('entryHolder');
 let date = document.getElementById('date');
 let temp = document.getElementById('temp');
@@ -60,9 +60,8 @@ function getWeather(event) {
     event.preventDefault();
     getData('/fakeWeatherData')
     .then(function (allData) {
-        console.log(allData);
         postData('/fakeWeatherData',{ date : allData.date, 
-            temp: allData.temp, content:allData.content, feelings: feeling.innerHTML })     
+            temp: allData.temp, content:allData.content, feelings: feeling.value })     
     })
     .then(
         updateUI()
