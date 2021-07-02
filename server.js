@@ -1,19 +1,22 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = { date : '',
+projectData = {
+    date: '',
     temp: '',
     content: '',
     feelings: '',
 };
 
 // Require Express to run server and routes
-const express=require('express');
-const bodyParser=require('body-parser');
-const cors=require('cors');
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 // Start up an instance of app
-const app=express();
+const app = express();
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(bodyParser.json());
 
 // Cors for cross origin allowance
@@ -22,30 +25,33 @@ app.use(cors());
 app.use(express.static('website'));
 
 // Setup Server
-const port=3000;
-const server=app.listen(port,listening);
-function listening(){
+const port = 3000;
+const server = app.listen(port, listening);
+
+function listening() {
     console.log(`running on localhost: ${port}`);
 }
 // Server Routes 
-app.get('/fakeWeatherData',sendData);
-app.post('/fakeWeatherData',insertData);
-app.get('/all',sendData);
-function sendData(request,response) {
+app.get('/fakeWeatherData', sendData);
+app.post('/fakeWeatherData', insertData);
+app.get('/all', sendData);
+
+function sendData(request, response) {
     response.send(projectData);
-    console.log("this data has been sent " );
+    console.log("this data has been sent ");
     console.log(projectData);
 }
-function insertData(request,response) {
-    let newEntry={
-        date : request.body.date,
+
+function insertData(request, response) {
+    let newEntry = {
+        date: request.body.date,
         temp: request.body.temp,
         content: request.body.content,
         feelings: request.body.feelings,
     }
-    
-    projectData=newEntry;
+
+    projectData = newEntry;
     response.send(projectData);
     console.log(projectData);
-    
+
 }
