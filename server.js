@@ -34,14 +34,20 @@ function listening() {
 // Server Routes 
 app.get('/fakeWeatherData', sendData);
 app.post('/fakeWeatherData', insertData);
-app.get('/all', sendData);
-
+app.get('/all', updateData);
+//functions
 function sendData(request, response) {
+   
+    // console.log("this data has been sent ")
+    // console.log(projectData)
     response.send(projectData);
-    console.log("this data has been sent ");
-    console.log(projectData);
 }
-
+function updateData(request, response) {
+ 
+    //console.log("this data has been updated ")
+    //console.log(projectData)
+    response.send(projectData);
+}
 function insertData(request, response) {
     let newEntry = {
         date: request.body.date,
@@ -49,9 +55,9 @@ function insertData(request, response) {
         content: request.body.content,
         feelings: request.body.feelings,
     }
-
     projectData = newEntry;
+    //console.log("Data has been added");
+    //console.log( projectData);
     response.send(projectData);
-    console.log(projectData);
 
 }
