@@ -7,7 +7,7 @@ This project create an asynchronous web app that uses Web API and user data to d
 This project have the `server.js` file as a local server and the `website/app.js` file where we build our api function to  get the data from the website and save it on our local server. You can see `index.html` our main page where we insert the zip code and how we feel and it will be updated on our UI and in our local server.
 
 ## Extras
-The project has gone throw 3 steps
+- The project has gone throw 3 steps
     - # 1st step
         - in the 1st step we build our local server & styled our main `index.html` page a little
     - # 2nd step
