@@ -13,6 +13,7 @@ let appId = "&appid=";
 let apiKey = "a48a0bbb0342c0230fb8267b21c220be";
 appId += apiKey;
 const baseUrl = "https://api.openweathermap.org/data/2.5/weather?zip=";
+let gotData;
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
@@ -25,11 +26,10 @@ const postData = async (url = '', data = {}) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
     });
     try {
         const newData = await response.json();
-        console.log(newData);
         return newData;
     } catch (error) {
         console.log("error", error);
@@ -39,18 +39,18 @@ const postData = async (url = '', data = {}) => {
 const getData = async (url = '') => {
     const request = await fetch(url);
     try {
-        const allData = await request.json()
-        console.log(allData);
+        const allData = await request.json();
+        // console.log(allData)
         return allData;
     } catch (error) {
         console.log("error", error);
     }
 };
 const updateUI = async () => {
-    const request = await fetch('/fakeWeatherData');
+    const request = await fetch('/all');
     try {
         const allData = await request.json();
-        console.log(allData);
+        // console.log(allData)
         date.innerHTML = allData.date;
         temp.innerHTML = allData.temp;
         content.innerHTML = allData.content;
@@ -62,10 +62,8 @@ const updateUI = async () => {
 }
 // get data
 function getWeather(event) {
-    event.preventDefault();
-    if (!zipKey.value) {
-        alert('Please Enter Zip code')
-    } else {
+    //event.preventDefault();
+    
         getData(baseUrl + zipKey.value + appId)
             .then(function(allData) {
                 postData('/fakeWeatherData', {
@@ -75,10 +73,11 @@ function getWeather(event) {
                     feelings: feeling.value
                 })
             })
-            .then(
+            .then(function(newData){
                 updateUI()
-            )
-    }
+                
+            })
+    
 }
 // Events
 btnGenerator.addEventListener('click', getWeather);
