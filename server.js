@@ -36,18 +36,17 @@ app.get('/fakeWeatherData', sendData);
 app.post('/fakeWeatherData', insertData);
 app.get('/all', updateData);
 //functions
+// function to send the data
 function sendData(request, response) {
-   
-    // console.log("this data has been sent ")
-    // console.log(projectData)
+
     response.send(projectData);
 }
+// function to update the UI
 function updateData(request, response) {
- 
-    //console.log("this data has been updated ")
-    //console.log(projectData)
+
     response.send(projectData);
 }
+// insert the data from the website to our local server
 function insertData(request, response) {
     let newEntry = {
         date: request.body.date,
@@ -56,8 +55,6 @@ function insertData(request, response) {
         feelings: request.body.feelings,
     }
     projectData = newEntry;
-    //console.log("Data has been added");
-    //console.log( projectData);
     response.send(projectData);
 
 }
